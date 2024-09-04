@@ -159,11 +159,11 @@ export default function SensorData() {
             selected. Please list the package names, separated by a comma or
             space.
             <br />
-            Example 1: com.phone.aware com.twitter.android
+            Example 1: com.aware.phone com.twitter.android
             <br />
-            Example 2: com.phone.aware,com.twitter.android
+            Example 2: com.aware.phone,com.twitter.android
             <br />
-            Example 3: com.phone.aware, com.twitter.android
+            Example 3: com.aware.phone, com.twitter.android
           </p>
         </Grid>
       </div>
@@ -1000,11 +1000,11 @@ export default function SensorData() {
                 You may leave the field blank if default is selected. Please
                 list the package names separated by comma or space.
                 <br />
-                Example 1: com.phone.aware com.twitter.android
+                Example 1: com.aware.phone com.twitter.android
                 <br />
-                Example 2: com.phone.aware,com.twitter.android
+                Example 2: com.aware.phone,com.twitter.android
                 <br />
-                Example 3: com.phone.aware, com.twitter.android
+                Example 3: com.aware.phone, com.twitter.android
               </p>
             </Grid>
           </div>
