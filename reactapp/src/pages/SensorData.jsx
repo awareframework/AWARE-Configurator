@@ -934,7 +934,7 @@ export default function SensorData() {
           />
           <SensorComponent
             sensorName="Local Storage"
-            sensorDescription="Choose whether to sync the screenshot data with a remote database or simply save the screenshot images in the folder located at /download/aware-light/screenshot/."
+            sensorDescription="Choose whether to save screenshot images locally in addition to syncing with the remote database. Screenshots are always synced to the remote database. If local storage is enabled, screenshots will also be saved in the folder located at /download/aware-light/screenshot/ on participant's device."
             stateField={screenshotData.status_screenshot_local_storage}
             field="status_screenshot_local_storage"
             modeState="screenshot"
