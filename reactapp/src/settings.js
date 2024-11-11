@@ -1,7 +1,8 @@
 const config = {
-  SERVER_PROTOCOL: "[REPLACEABLE_PROTOCOL]",
-  SERVER_IP: "[REPLACEABLE_IP_ADDR]",
-  SERVER_PORT: [REPLACEABLE_PORT_NUM],
+  SERVER_PROTOCOL: "http",
+  SERVER_IP: "127.0.0.1",
+  SERVER_PORT: [8000],
+  secretCount: "randomKey",
 };
 
 export default config;
