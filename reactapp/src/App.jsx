@@ -10,6 +10,8 @@ import ScheduleConfiguration from "./pages/ScheduleConfiguration";
 import SensorData from "./pages/SensorData";
 import Upload from "./pages/Upload";
 import CustomizedDialog from "./components/Dialog/CustomizedDialog";
+import config from "./settings";
+import Count from "./pages/Count";
 
 function App() {
   return (
@@ -32,6 +34,10 @@ function App() {
           <Route path="/study/overview" element={<Overview />} />
         </Route>
         <Route path="/upload" element={<Upload />} />
+        <Route
+          path={`/count/${config.secretCount}/:data`}
+          element={<Count />}
+        />
       </Routes>
       <CustomizedDialog />
     </BrowserRouter>

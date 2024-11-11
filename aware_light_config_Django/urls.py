@@ -23,5 +23,6 @@ urlpatterns = [
     path('get_token/', general.get_token),
     path('initialize_database/', database_operations.initialize_database),
     path('save_json_file/', general.save_json_file),
+    path('add_count/', general.add_count),
     re_path(r'.*', TemplateView.as_view(template_name='index.html')),
 ]
