@@ -42,9 +42,26 @@ def add_count(request):
         json_dict = json.loads(json_str)
         data = json_dict.get('data', None)
         print(data)
+        
+        # Extract the device_id value from the data
+        device_id = None
+        if data:
+            for item in data.split(','):
+                if item.strip().startswith('device_id='):
+                    device_id = item.split('=')[1].strip()
+                    break
+        
+        if not device_id:
+            return HttpResponse("No device_id found in data.", status=400)
+        
+        # Check if the device_id already exists in count.csv
         with file_lock:
+            with open('./count.csv', 'r') as file:
+                if any(f"device_id={device_id}" in line for line in file):
+                    return HttpResponse("Duplicate device_id found, not added.")
+            
+            # Append the new data as a new line if device_id is unique
             with open('./count.csv', 'a') as file:
-                # Append the new data as a new line
                 file.write(f"{data}\n")
         
     return HttpResponse("success")
