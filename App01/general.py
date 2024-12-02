@@ -3,7 +3,9 @@ import logging
 import os
 import uuid
 import threading
+import re
 from django.http import HttpResponse
+from urllib.parse import unquote
 from django.views.decorators.csrf import ensure_csrf_cookie
 
 from aware_light_config_Django import settings
@@ -36,32 +38,21 @@ def save(content):
     file.write(content)
     file.close()
     
-def add_count(request):
-    if request.method == "POST":
-        json_str = request.body
-        json_dict = json.loads(json_str)
-        data = json_dict.get('data', None)
-        print(data)
-        
-        # Extract the device_id value from the data
-        device_id = None
+
+
+def add_count(request, data=None):
+    if request.method == "GET":
         if data:
-            for item in data.split(','):
-                if item.strip().startswith('device_id='):
-                    device_id = item.split('=')[1].strip()
-                    break
-        
-        if not device_id:
-            return HttpResponse("No device_id found in data.", status=400)
-        
-        # Check if the device_id already exists in count.csv
-        with file_lock:
-            with open('./count.csv', 'r') as file:
-                if any(f"device_id={device_id}" in line for line in file):
-                    return HttpResponse("Duplicate device_id found, not added.")
+            # URL decode the data
+            data = unquote(data)
+            # Apply transformation similar to JavaScript's data.replace(/(\s?)(\w+=)/g, ",$2")
+            data = re.sub(r'(\s?)(\w+=)', r',\2', data)
+            if data.startswith(','):
+                data = data[1:]
             
-            # Append the new data as a new line if device_id is unique
-            with open('./count.csv', 'a') as file:
-                file.write(f"{data}\n")
-        
-    return HttpResponse("success")
+            with file_lock:
+                with open('./count.csv', 'a') as file:
+                    file.write(f"{data}\n")
+            
+            return HttpResponse("success")
+        return HttpResponse("no data provided", status=400)
