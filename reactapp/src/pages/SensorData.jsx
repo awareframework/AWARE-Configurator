@@ -41,6 +41,8 @@ import SensorComponent from "../components/SensorComponent/SensorComponent";
 import FrequencyField from "../components/FrequencyField/FrequencyField";
 import customisedTheme from "../functions/theme";
 import Field from "../components/Field/Field";
+import InputField from "../components/InputField/InputField";
+import PluginAPIField from "../components/PluginAPIField/PluginAPIField";
 
 export default function SensorData() {
   const navigateTo = useNavigate();
@@ -1075,6 +1077,16 @@ export default function SensorData() {
             description="Frequency of weather data updates in minutes."
             field="plugin_openweather_frequency"
             studyField={pluginData.plugin_openweather_frequency}
+            modeState="plugin"
+          />
+
+          <PluginAPIField
+            id="plugin_openweather_api_key"
+            title="API Key"
+            inputLabel="OpenWeather API Key"
+            description="API key for OpenWeatherMap. You can get it by registering at https://home.openweathermap.org/users/sign_up"
+            field="plugin_openweather_api_key"
+            studyField={pluginData.plugin_openweather_api_key}
             modeState="plugin"
           />
         </Grid>

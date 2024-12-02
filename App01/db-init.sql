@@ -449,7 +449,6 @@ CREATE TABLE IF NOT EXISTS `plugin_ambient_noise` (
   `double_rms` double DEFAULT '0',
   `is_silent` int(11) DEFAULT '0',
   `double_silence_threshold` double DEFAULT '0',
-  `blob_raw` blob,
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
