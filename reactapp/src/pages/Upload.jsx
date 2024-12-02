@@ -513,6 +513,9 @@ export default function Upload() {
         case "plugin_openweather_frequency":
           pluginData.plugin_openweather_frequency = value;
           break;
+        case "plugin_openweather_api_key":
+          pluginData.plugin_openweather_api_key = value;
+          break;
 
         default:
       }

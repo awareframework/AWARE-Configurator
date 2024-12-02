@@ -861,6 +861,12 @@ export default function Main() {
             ? pluginData.plugin_openweather_frequency
             : 30,
         },
+        {
+          setting: "plugin_openweather_api_key",
+          value: pluginData.plugin_openweather_api_key
+            ? pluginData.plugin_openweather_api_key
+            : "",
+        },
         // default sensors
         { setting: "status_esm", value: true },
         { setting: "status_webservice", value: true },
