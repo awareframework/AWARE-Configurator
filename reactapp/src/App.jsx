@@ -10,6 +10,7 @@ import ScheduleConfiguration from "./pages/ScheduleConfiguration";
 import SensorData from "./pages/SensorData";
 import Upload from "./pages/Upload";
 import CustomizedDialog from "./components/Dialog/CustomizedDialog";
+import config from "./settings";
 
 function App() {
   return (
