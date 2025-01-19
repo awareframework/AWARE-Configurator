@@ -867,6 +867,12 @@ export default function Main() {
             ? pluginData.plugin_openweather_api_key
             : "",
         },
+        {
+          setting: "plugin_openweather_measurement_units",
+          value: pluginData.plugin_openweather_measurement_units
+            ? pluginData.plugin_openweather_measurement_units
+            : "metric",
+        },
         // default sensors
         { setting: "status_esm", value: true },
         { setting: "status_webservice", value: true },
