@@ -115,6 +115,14 @@ export default function SensorData() {
   );
 
   const [pluginData, setPluginData] = useRecoilState(pluginSensorState);
+
+  const updatePluginData = (fieldName, value) => {
+    setPluginData({
+      ...pluginData,
+      [fieldName]: value,
+    });
+  };
+
   // eslint-disable-next-line react/no-unstable-nested-components
   function TextReader() {
     return (
@@ -1088,6 +1096,41 @@ export default function SensorData() {
             studyField={pluginData.plugin_openweather_api_key}
             modeState="plugin"
           />
+
+          <Grid>
+            <p className="field_name" mb={10}>
+              Measurement unit
+            </p>
+          </Grid>
+          <RadioGroup
+            aria-labelledby="Measurement units"
+            name="measurement units"
+            value={pluginData.plugin_openweather_measurement_units || "metric"}
+            row
+          >
+            <FormControlLabel
+              value="0"
+              control={<Radio />}
+              label="Metric"
+              onClick={(_, checked) => {
+                updatePluginData(
+                  "plugin_openweather_measurement_units",
+                  "metric"
+                );
+              }}
+            />
+            <FormControlLabel
+              value="1"
+              control={<Radio />}
+              label="Imperial"
+              onClick={(_, checked) => {
+                updatePluginData(
+                  "plugin_openweather_measurement_units",
+                  "imperial"
+                );
+              }}
+            />
+          </RadioGroup>
         </Grid>
       </Grid>
     );

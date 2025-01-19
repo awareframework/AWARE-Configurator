@@ -516,6 +516,9 @@ export default function Upload() {
         case "plugin_openweather_api_key":
           pluginData.plugin_openweather_api_key = value;
           break;
+        case "plugin_openweather_measurement_units":
+          pluginData.plugin_openweather_measurement_units = value;
+          break;
 
         default:
       }
