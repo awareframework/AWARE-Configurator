@@ -35,6 +35,7 @@ import {
   timezoneState,
   wifiState,
   screenshotSensorState,
+  noteState,
   pluginSensorState,
 } from "../functions/atom";
 import SensorComponent from "../components/SensorComponent/SensorComponent";
@@ -113,6 +114,8 @@ export default function SensorData() {
   const [screenshotData, setScreenshotData] = useRecoilState(
     screenshotSensorState
   );
+
+  const [noteData, setNoteData] = useRecoilState(noteState);
 
   const [pluginData, setPluginData] = useRecoilState(pluginSensorState);
 
@@ -1385,6 +1388,14 @@ export default function SensorData() {
           />
 
           {sensorData.sensor_timezone ? SensorTimezoneSubContent() : <div />}
+
+          <SensorComponent
+            sensorName="Taking Note"
+            sensorDescription="Allow participants to take notes."
+            stateField={sensorData.sensor_notes}
+            field="sensor_notes"
+            modeState="sensor"
+          />
         </div>
 
         <div className="border">
