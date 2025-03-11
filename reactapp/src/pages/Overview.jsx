@@ -46,6 +46,7 @@ import {
   timezoneState,
   wifiState,
   screenshotSensorState,
+  noteState,
   pluginSensorState,
 } from "../functions/atom";
 import {
@@ -97,6 +98,7 @@ export default function Main() {
   const [result, setResult] = useState({});
   const date = new Date().toJSON();
   const screenshotData = useRecoilValue(screenshotSensorState);
+  const noteData = useRecoilValue(noteState);
   const pluginData = useRecoilValue(pluginSensorState);
 
   const checkStudyInformationValidation = () => {
@@ -827,6 +829,10 @@ export default function Main() {
             : "2",
         },
         {
+          setting: "status_notes",
+          value: sensorData.sensor_notes ? sensorData.sensor_notes : false,
+        },
+        {
           setting: "status_plugin_ambient_noise",
           value: sensorData.status_plugin_ambient_noise
             ? sensorData.status_plugin_ambient_noise
@@ -1088,6 +1094,7 @@ export default function Main() {
             {displaySensors("sensor_screenshot", "Screenshot")}
             {displaySensors("sensor_telephony", "Telephony")}
             {displaySensors("sensor_timezone", "Timezone")}
+            {displaySensors("sensor_notes", "Notes")}
 
             {displaySensors("sensor_accelerometer", "Accelerometer")}
             {displaySensors("sensor_barometer", "Barometer")}
