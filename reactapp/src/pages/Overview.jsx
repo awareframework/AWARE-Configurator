@@ -46,6 +46,7 @@ import {
   timezoneState,
   wifiState,
   screenshotSensorState,
+  noteState,
 } from "../functions/atom";
 import {
   RANDOM_TRIGGERS,
@@ -96,6 +97,7 @@ export default function Main() {
   const [result, setResult] = useState({});
   const date = new Date().toJSON();
   const screenshotData = useRecoilValue(screenshotSensorState);
+  const noteData = useRecoilValue(noteState);
 
   const checkStudyInformationValidation = () => {
     return (
@@ -824,6 +826,10 @@ export default function Main() {
             ? applicationSensor.screenshot_package_specification
             : "2",
         },
+        {
+          setting: "status_notes",
+          value: sensorData.sensor_notes ? sensorData.sensor_notes : false,
+        },
 
         // default sensors
         { setting: "status_esm", value: true },
@@ -1039,6 +1045,7 @@ export default function Main() {
             {displaySensors("sensor_screenshot", "Screenshot")}
             {displaySensors("sensor_telephony", "Telephony")}
             {displaySensors("sensor_timezone", "Timezone")}
+            {displaySensors("sensor_notes", "Notes")}
 
             {displaySensors("sensor_accelerometer", "Accelerometer")}
             {displaySensors("sensor_barometer", "Barometer")}

@@ -29,6 +29,7 @@ import {
   timezoneState,
   wifiState,
   screenshotSensorState,
+  noteState,
 } from "../functions/atom";
 import SensorComponent from "../components/SensorComponent/SensorComponent";
 import FrequencyField from "../components/FrequencyField/FrequencyField";
@@ -104,6 +105,8 @@ export default function SensorData() {
   const [screenshotData, setScreenshotData] = useRecoilState(
     screenshotSensorState
   );
+
+  const [noteData, setNoteData] = useRecoilState(noteState);
 
   // eslint-disable-next-line react/no-unstable-nested-components
   function TextReader() {
@@ -1260,6 +1263,14 @@ export default function SensorData() {
           />
 
           {sensorData.sensor_timezone ? SensorTimezoneSubContent() : <div />}
+
+          <SensorComponent
+            sensorName="Taking Note"
+            sensorDescription="Allow participants to take notes."
+            stateField={sensorData.sensor_notes}
+            field="sensor_notes"
+            modeState="sensor"
+          />
         </div>
 
         <div className="border">

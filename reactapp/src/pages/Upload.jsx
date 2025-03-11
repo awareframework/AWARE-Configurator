@@ -493,6 +493,9 @@ export default function Upload() {
         case "screenshot_package_specification":
           applicationSensor.screenshot_package_specification = value;
           break;
+        case "status_notes":
+          sensorData.sensor_notes = value;
+          break;
 
         default:
       }
