@@ -139,4 +139,3 @@ LOGGING = {
 }
 
 STORAGE_DIR = "./saved_json_files"
-SECRETS_COUNT_KEY = "bMwTv7uPE6"
