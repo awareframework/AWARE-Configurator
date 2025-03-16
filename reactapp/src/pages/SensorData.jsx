@@ -4,7 +4,13 @@ import Grid from "@mui/material/Unstable_Grid2";
 import Box from "@mui/material/Box";
 import { useRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
-import { Button, Radio, RadioGroup, ThemeProvider } from "@mui/material";
+import {
+  Button,
+  Checkbox,
+  Radio,
+  RadioGroup,
+  ThemeProvider,
+} from "@mui/material";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import {
   accelerometerState,
@@ -29,11 +35,14 @@ import {
   timezoneState,
   wifiState,
   screenshotSensorState,
+  pluginSensorState,
 } from "../functions/atom";
 import SensorComponent from "../components/SensorComponent/SensorComponent";
 import FrequencyField from "../components/FrequencyField/FrequencyField";
 import customisedTheme from "../functions/theme";
 import Field from "../components/Field/Field";
+import InputField from "../components/InputField/InputField";
+import PluginAPIField from "../components/PluginAPIField/PluginAPIField";
 
 export default function SensorData() {
   const navigateTo = useNavigate();
@@ -104,6 +113,15 @@ export default function SensorData() {
   const [screenshotData, setScreenshotData] = useRecoilState(
     screenshotSensorState
   );
+
+  const [pluginData, setPluginData] = useRecoilState(pluginSensorState);
+
+  const updatePluginData = (fieldName, value) => {
+    setPluginData({
+      ...pluginData,
+      [fieldName]: value,
+    });
+  };
 
   // eslint-disable-next-line react/no-unstable-nested-components
   function TextReader() {
@@ -1011,6 +1029,112 @@ export default function SensorData() {
       </Grid>
     );
   }
+  // eslint-disable-next-line react/no-unstable-nested-components
+  function PluginAmbientNoiseSubContent() {
+    return (
+      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+        <Grid width="10%" />
+        <Grid width="70%">
+          <FrequencyField
+            id="frequency_plugin_ambient_noise"
+            title="Sampling Frequency"
+            inputLabel="How frequently to sample the microphone (minutes)"
+            defaultNum={5}
+            description="Frequency of ambient noise sampling in minutes."
+            field="frequency_plugin_ambient_noise"
+            studyField={pluginData.frequency_plugin_ambient_noise}
+            modeState="plugin"
+          />
+          <FrequencyField
+            id="plugin_ambient_noise_sample_size"
+            title="Sample Size"
+            inputLabel="Duration of each sample (seconds)"
+            defaultNum={30}
+            description="Duration of each ambient noise sample in seconds."
+            field="plugin_ambient_noise_sample_size"
+            studyField={pluginData.plugin_ambient_noise_sample_size}
+            modeState="plugin"
+          />
+          <FrequencyField
+            id="plugin_ambient_noise_silence_threshold"
+            title="Silence Threshold"
+            inputLabel="Silence threshold (dB)"
+            defaultNum={50}
+            description="Threshold for considering ambient noise as silence (in dB)."
+            field="plugin_ambient_noise_silence_threshold"
+            studyField={pluginData.plugin_ambient_noise_silence_threshold}
+            modeState="plugin"
+          />
+        </Grid>
+      </Grid>
+    );
+  }
+
+  // eslint-disable-next-line react/no-unstable-nested-components
+  function PluginOpenWeatherSubContent() {
+    return (
+      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+        <Grid width="10%" />
+        <Grid width="70%">
+          <FrequencyField
+            id="plugin_openweather_frequency"
+            title="Update Frequency"
+            inputLabel="How often to fetch weather data (minutes)"
+            defaultNum={30}
+            description="Frequency of weather data updates in minutes."
+            field="plugin_openweather_frequency"
+            studyField={pluginData.plugin_openweather_frequency}
+            modeState="plugin"
+          />
+
+          <PluginAPIField
+            id="plugin_openweather_api_key"
+            title="API Key"
+            inputLabel="OpenWeather API Key"
+            description="API key for OpenWeatherMap. You can get it by registering at https://home.openweathermap.org/users/sign_up"
+            field="plugin_openweather_api_key"
+            studyField={pluginData.plugin_openweather_api_key}
+            modeState="plugin"
+          />
+
+          <Grid>
+            <p className="field_name" mb={10}>
+              Measurement unit
+            </p>
+          </Grid>
+          <RadioGroup
+            aria-labelledby="Measurement units"
+            name="measurement units"
+            value={pluginData.plugin_openweather_measurement_units || "metric"}
+            row
+          >
+            <FormControlLabel
+              value="0"
+              control={<Radio />}
+              label="Metric"
+              onClick={(_, checked) => {
+                updatePluginData(
+                  "plugin_openweather_measurement_units",
+                  "metric"
+                );
+              }}
+            />
+            <FormControlLabel
+              value="1"
+              control={<Radio />}
+              label="Imperial"
+              onClick={(_, checked) => {
+                updatePluginData(
+                  "plugin_openweather_measurement_units",
+                  "imperial"
+                );
+              }}
+            />
+          </RadioGroup>
+        </Grid>
+      </Grid>
+    );
+  }
 
   return (
     <ThemeProvider theme={customisedTheme}>
@@ -1428,6 +1552,35 @@ export default function SensorData() {
           />
 
           {sensorData.sensor_wifi ? SensorWifiSubContent() : <div />}
+        </div>
+
+        <div className="border">
+          <p className="title">Plugin</p>
+          <SensorComponent
+            sensorName="Ambient Noise Plugin"
+            sensorDescription="Ambient noise sampling plugin for smartphones"
+            stateField={sensorData.status_plugin_ambient_noise}
+            field="status_plugin_ambient_noise"
+            modeState="sensor"
+          />
+          {sensorData.status_plugin_ambient_noise ? (
+            PluginAmbientNoiseSubContent()
+          ) : (
+            <div />
+          )}
+
+          <SensorComponent
+            sensorName="OpenWeather Plugin"
+            sensorDescription="Fetch local weather data using OpenWeather API"
+            stateField={sensorData.status_plugin_openweather}
+            field="status_plugin_openweather"
+            modeState="sensor"
+          />
+          {sensorData.status_plugin_openweather ? (
+            PluginOpenWeatherSubContent()
+          ) : (
+            <div />
+          )}
         </div>
 
         <Box sx={{ width: "100%" }} mt={5} marginBottom={5}>

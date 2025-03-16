@@ -449,54 +449,6 @@ CREATE TABLE IF NOT EXISTS `plugin_ambient_noise` (
   `double_rms` double DEFAULT '0',
   `is_silent` int(11) DEFAULT '0',
   `double_silence_threshold` double DEFAULT '0',
-  `blob_raw` blob,
-  PRIMARY KEY (`_id`),
-  KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE IF NOT EXISTS `plugin_contacts` (
-  `_id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `timestamp` double DEFAULT '0',
-  `device_id` varchar(150) DEFAULT '',
-  `name` text,
-  `phone_numbers` text,
-  `emails` text,
-  `groups` text,
-  `sync_date` double DEFAULT '0',
-  PRIMARY KEY (`_id`),
-  KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE IF NOT EXISTS `plugin_device_usage` (
-  `_id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `timestamp` double DEFAULT '0',
-  `device_id` varchar(150) DEFAULT '',
-  `double_elapsed_device_on` double DEFAULT '0',
-  `double_elapsed_device_off` double DEFAULT '0',
-  PRIMARY KEY (`_id`),
-  KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE IF NOT EXISTS `plugin_google_activity_recognition` (
-  `_id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `timestamp` double DEFAULT '0',
-  `device_id` varchar(150) DEFAULT '',
-  `activity_name` text,
-  `activity_type` int(11) DEFAULT '0',
-  `confidence` int(11) DEFAULT '0',
-  `activities` text,
-  PRIMARY KEY (`_id`),
-  KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE IF NOT EXISTS `plugin_google_login` (
-  `_id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `timestamp` double DEFAULT '0',
-  `device_id` varchar(150) DEFAULT '',
-  `name` text,
-  `email` text,
-  `phonenumber` text,
-  `blob_picture` blob,
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -521,20 +473,6 @@ CREATE TABLE IF NOT EXISTS `plugin_openweather` (
   `sunset` double DEFAULT '0',
   `weather_icon_id` int(11) DEFAULT '0',
   `weather_description` text,
-  PRIMARY KEY (`_id`),
-  KEY `time_device` (`timestamp`,`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE IF NOT EXISTS `plugin_studentlife_audio_android` (
-  `_id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `timestamp` double DEFAULT '0',
-  `device_id` varchar(150) DEFAULT '',
-  `datatype` int(11) DEFAULT '0',
-  `double_energy` double DEFAULT '0',
-  `inference` int(11) DEFAULT '-1',
-  `blob_feature` blob,
-  `double_convo_start` double DEFAULT '0',
-  `double_convo_end` double DEFAULT '0',
   PRIMARY KEY (`_id`),
   KEY `time_device` (`timestamp`,`device_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

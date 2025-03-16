@@ -46,6 +46,7 @@ import {
   timezoneState,
   wifiState,
   screenshotSensorState,
+  pluginSensorState,
 } from "../functions/atom";
 import {
   RANDOM_TRIGGERS,
@@ -96,6 +97,7 @@ export default function Main() {
   const [result, setResult] = useState({});
   const date = new Date().toJSON();
   const screenshotData = useRecoilValue(screenshotSensorState);
+  const pluginData = useRecoilValue(pluginSensorState);
 
   const checkStudyInformationValidation = () => {
     return (
@@ -824,7 +826,54 @@ export default function Main() {
             ? applicationSensor.screenshot_package_specification
             : "2",
         },
-
+        {
+          setting: "status_plugin_ambient_noise",
+          value: sensorData.status_plugin_ambient_noise
+            ? sensorData.status_plugin_ambient_noise
+            : false,
+        },
+        {
+          setting: "frequency_plugin_ambient_noise",
+          value: pluginData.frequency_plugin_ambient_noise
+            ? pluginData.frequency_plugin_ambient_noise
+            : 5,
+        },
+        {
+          setting: "plugin_ambient_noise_sample_size",
+          value: pluginData.plugin_ambient_noise_sample_size
+            ? pluginData.plugin_ambient_noise_sample_size
+            : 30,
+        },
+        {
+          setting: "plugin_ambient_noise_silence_threshold",
+          value: pluginData.plugin_ambient_noise_silence_threshold
+            ? pluginData.plugin_ambient_noise_silence_threshold
+            : 50,
+        },
+        {
+          setting: "status_plugin_openweather",
+          value: sensorData.status_plugin_openweather
+            ? sensorData.status_plugin_openweather
+            : false,
+        },
+        {
+          setting: "plugin_openweather_frequency",
+          value: pluginData.plugin_openweather_frequency
+            ? pluginData.plugin_openweather_frequency
+            : 30,
+        },
+        {
+          setting: "plugin_openweather_api_key",
+          value: pluginData.plugin_openweather_api_key
+            ? pluginData.plugin_openweather_api_key
+            : "",
+        },
+        {
+          setting: "plugin_openweather_measurement_units",
+          value: pluginData.plugin_openweather_measurement_units
+            ? pluginData.plugin_openweather_measurement_units
+            : "metric",
+        },
         // default sensors
         { setting: "status_esm", value: true },
         { setting: "status_webservice", value: true },
@@ -1057,6 +1106,12 @@ export default function Main() {
             {displaySensors("sensor_rotation", "Rotation")}
             {displaySensors("sensor_temperature", "Temperature")}
             {displaySensors("sensor_sensor_wifi", "Wifi")}
+
+            <Grid width={250} ml={5} mt={3}>
+              <p className="title">Plugin</p>
+            </Grid>
+            {displaySensors("status_plugin_ambient_noise", "Ambient Noise")}
+            {displaySensors("status_plugin_openweather", "OpenWeather")}
 
             <Grid
               container

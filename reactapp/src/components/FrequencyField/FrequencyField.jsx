@@ -25,6 +25,7 @@ import {
   timezoneState,
   wifiState,
   screenshotSensorState,
+  pluginSensorState,
 } from "../../functions/atom";
 
 function FrequencyField(inputs) {
@@ -79,6 +80,22 @@ function FrequencyField(inputs) {
   const [screenshotData, setScreenshotData] = useRecoilState(
     screenshotSensorState
   );
+
+  const [pluginData, setPluginData] = useRecoilState(pluginSensorState);
+
+  const updateScreenshotData = (fieldName, value) => {
+    setScreenshotData({
+      ...screenshotData,
+      [fieldName]: value,
+    });
+  };
+
+  const updatePluginData = (fieldName, value) => {
+    setPluginData({
+      ...pluginData,
+      [fieldName]: value,
+    });
+  };
 
   function updateStates(fieldName, value, mode) {
     const numValue = parseFloat(value);
@@ -203,6 +220,60 @@ function FrequencyField(inputs) {
           console.warn(`Unexpected mode: ${mode}`);
           break;
       }
+    }
+  }
+
+    // hardware sensors
+    if (mode === "accelerometer") {
+      updateAccelerometerData(fieldName, value);
+    }
+    if (mode === "barometer") {
+      updateBarometerData(fieldName, value);
+    }
+    if (mode === "bluetooth") {
+      updateBluetoothData(fieldName, value);
+    }
+    if (mode === "gravity") {
+      updateGravityData(fieldName, value);
+    }
+    if (mode === "gyroscope") {
+      updateGyroscopeData(fieldName, value);
+    }
+    if (mode === "light") {
+      updateLightData(fieldName, value);
+    }
+    if (mode === "linearAccelerometer") {
+      updateLinearAccelerometerData(fieldName, value);
+    }
+    if (mode === "locations") {
+      updateLocationsData(fieldName, value);
+    }
+    if (mode === "magnetometer") {
+      updateMagnetometerData(fieldName, value);
+    }
+    if (mode === "network") {
+      updateNetworkData(fieldName, value);
+    }
+    if (mode === "processor") {
+      updateProcessorData(fieldName, value);
+    }
+    if (mode === "rotation") {
+      updateRotationData(fieldName, value);
+    }
+    if (mode === "temperature") {
+      updateTemperatureData(fieldName, value);
+    }
+    if (mode === "proximity") {
+      updateProximityData(fieldName, value);
+    }
+    if (mode === "wifi") {
+      updateWifiData(fieldName, value);
+    }
+    if (mode === "screenshot") {
+      updateScreenshotData(fieldName, value);
+    }
+    if (mode === "plugin") {
+      updatePluginData(fieldName, value);
     }
   }
 
