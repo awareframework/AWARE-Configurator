@@ -1,10 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./FrequencyField.css";
 import { TextField } from "@mui/material";
 import { useRecoilState } from "recoil";
 import Grid from "@mui/material/Unstable_Grid2";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import {
   accelerometerState,
   applicationSensorState,
@@ -31,177 +29,54 @@ import {
 } from "../../functions/atom";
 
 function FrequencyField(inputs) {
-  const [sensorData, setsensorData] = useRecoilState(sensorDataState);
-  const updateSensorData = (fieldName, value) => {
-    setsensorData({
-      ...sensorData,
-      [fieldName]: value,
-    });
-  };
+  const {
+    id,
+    title,
+    inputLabel,
+    defaultNum,
+    description,
+    field,
+    studyField,
+    modeState,
+  } = inputs;
 
-  // software sensor states
-  const [applicationSensor, setapplicationSensor] = useRecoilState(
+  const [localValue, setLocalValue] = useState(
+    studyField || defaultNum.toString()
+  );
+
+  useEffect(() => {
+    setLocalValue(studyField || defaultNum.toString());
+  }, [studyField, defaultNum]);
+
+  const [sensorData, setSensorData] = useRecoilState(sensorDataState);
+  const [applicationSensor, setApplicationSensor] = useRecoilState(
     applicationSensorState
   );
-  const updateApplicationData = (fieldName, value) => {
-    setapplicationSensor({
-      ...applicationSensor,
-      [fieldName]: value,
-    });
-  };
-
-  const [screenData, setscreenData] = useRecoilState(screenSensorState);
-  const updateScreenData = (fieldName, value) => {
-    setscreenData({
-      ...screenData,
-      [fieldName]: value,
-    });
-  };
-
+  const [screenData, setScreenData] = useRecoilState(screenSensorState);
   const [communicationData, setCommunicationData] = useRecoilState(
     communicationSensorState
   );
-  const updateCommunicationData = (fieldName, value) => {
-    setCommunicationData({
-      ...communicationData,
-      [fieldName]: value,
-    });
-  };
-
   const [timezoneData, setTimezoneData] = useRecoilState(timezoneState);
-  const updateTimezoneData = (fieldName, value) => {
-    setTimezoneData({
-      ...timezoneData,
-      [fieldName]: value,
-    });
-  };
-
-  // hardware sensor states
   const [accelerometerData, setAccelerometerData] =
     useRecoilState(accelerometerState);
-  const updateAccelerometerData = (fieldName, value) => {
-    setAccelerometerData({
-      ...accelerometerData,
-      [fieldName]: value,
-    });
-  };
-
   const [barometerData, setBarometerData] = useRecoilState(barometerState);
-  const updateBarometerData = (fieldName, value) => {
-    setBarometerData({
-      ...barometerData,
-      [fieldName]: value,
-    });
-  };
-
   const [bluetoothData, setBluetoothData] = useRecoilState(bluetoothState);
-  const updateBluetoothData = (fieldName, value) => {
-    setBluetoothData({
-      ...bluetoothData,
-      [fieldName]: value,
-    });
-  };
-
   const [gravityData, setGravityData] = useRecoilState(gravityState);
-  const updateGravityData = (fieldName, value) => {
-    setGravityData({
-      ...gravityData,
-      [fieldName]: value,
-    });
-  };
-
   const [gyroscopeData, setGyroscopeData] = useRecoilState(gyroscopeState);
-  const updateGyroscopeData = (fieldName, value) => {
-    setGyroscopeData({
-      ...gyroscopeData,
-      [fieldName]: value,
-    });
-  };
-
   const [lightData, setLightData] = useRecoilState(lightState);
-  const updateLightData = (fieldName, value) => {
-    setLightData({
-      ...lightData,
-      [fieldName]: value,
-    });
-  };
-
   const [linearAccelerometerData, setLinearAccelerometerData] = useRecoilState(
     linearAccelerometerState
   );
-  const updateLinearAccelerometerData = (fieldName, value) => {
-    setLinearAccelerometerData({
-      ...linearAccelerometerData,
-      [fieldName]: value,
-    });
-  };
-
   const [locationsData, setLocationsData] = useRecoilState(locationsState);
-  const updateLocationsData = (fieldName, value) => {
-    setLocationsData({
-      ...locationsData,
-      [fieldName]: value,
-    });
-  };
-
   const [magnetometerData, setMagnetometerData] =
     useRecoilState(magnetometerState);
-  const updateMagnetometerData = (fieldName, value) => {
-    setMagnetometerData({
-      ...magnetometerData,
-      [fieldName]: value,
-    });
-  };
-
   const [networkData, setNetworkData] = useRecoilState(networkState);
-  const updateNetworkData = (fieldName, value) => {
-    setNetworkData({
-      ...networkData,
-      [fieldName]: value,
-    });
-  };
-
   const [processorData, setProcessorData] = useRecoilState(processorState);
-  const updateProcessorData = (fieldName, value) => {
-    setProcessorData({
-      ...processorData,
-      [fieldName]: value,
-    });
-  };
-
   const [rotationData, setRotationData] = useRecoilState(rotationState);
-  const updateRotationData = (fieldName, value) => {
-    setRotationData({
-      ...rotationData,
-      [fieldName]: value,
-    });
-  };
-
   const [temperatureData, setTemperatureData] =
     useRecoilState(temperatureState);
-  const updateTemperatureData = (fieldName, value) => {
-    setTemperatureData({
-      ...temperatureData,
-      [fieldName]: value,
-    });
-  };
-
   const [proximityData, setProximityData] = useRecoilState(proximityState);
-  const updateProximityData = (fieldName, value) => {
-    setProximityData({
-      ...proximityData,
-      [fieldName]: value,
-    });
-  };
-
   const [wifiData, setWifiData] = useRecoilState(wifiState);
-  const updateWifiData = (fieldName, value) => {
-    setWifiData({
-      ...wifiData,
-      [fieldName]: value,
-    });
-  };
-
   const [screenshotData, setScreenshotData] = useRecoilState(
     screenshotSensorState
   );
@@ -223,23 +98,130 @@ function FrequencyField(inputs) {
   };
 
   function updateStates(fieldName, value, mode) {
-    if (mode === "sensor") {
-      updateSensorData(fieldName, value);
-    }
+    const numValue = parseFloat(value);
+    if (!Number.isNaN(numValue) && numValue > 0) {
+      switch (mode) {
+        case "sensor":
+          setSensorData((prevData) => ({ ...prevData, [fieldName]: numValue }));
+          break;
+        case "application":
+          setApplicationSensor((prevData) => ({
+            ...prevData,
+            [fieldName]: numValue,
+          }));
+          break;
+        case "screen":
+          setScreenData((prevData) => ({ ...prevData, [fieldName]: numValue }));
+          break;
+        case "communication":
+          setCommunicationData((prevData) => ({
+            ...prevData,
+            [fieldName]: numValue,
+          }));
+          break;
+        case "timezone":
+          setTimezoneData((prevData) => ({
+            ...prevData,
+            [fieldName]: numValue,
+          }));
+          break;
+        case "accelerometer":
+          setAccelerometerData((prevData) => ({
+            ...prevData,
+            [fieldName]: numValue,
+          }));
+          break;
+        case "barometer":
+          setBarometerData((prevData) => ({
+            ...prevData,
+            [fieldName]: numValue,
+          }));
+          break;
+        case "bluetooth":
+          setBluetoothData((prevData) => ({
+            ...prevData,
+            [fieldName]: numValue,
+          }));
+          break;
+        case "gravity":
+          setGravityData((prevData) => ({
+            ...prevData,
+            [fieldName]: numValue,
+          }));
+          break;
+        case "gyroscope":
+          setGyroscopeData((prevData) => ({
+            ...prevData,
+            [fieldName]: numValue,
+          }));
+          break;
+        case "light":
+          setLightData((prevData) => ({ ...prevData, [fieldName]: numValue }));
+          break;
+        case "linearAccelerometer":
+          setLinearAccelerometerData((prevData) => ({
+            ...prevData,
+            [fieldName]: numValue,
+          }));
+          break;
+        case "locations":
+          setLocationsData((prevData) => ({
+            ...prevData,
+            [fieldName]: numValue,
+          }));
+          break;
+        case "magnetometer":
+          setMagnetometerData((prevData) => ({
+            ...prevData,
+            [fieldName]: numValue,
+          }));
+          break;
+        case "network":
+          setNetworkData((prevData) => ({
+            ...prevData,
+            [fieldName]: numValue,
+          }));
+          break;
+        case "processor":
+          setProcessorData((prevData) => ({
+            ...prevData,
+            [fieldName]: numValue,
+          }));
+          break;
+        case "rotation":
+          setRotationData((prevData) => ({
+            ...prevData,
+            [fieldName]: numValue,
+          }));
+          break;
+        case "temperature":
+          setTemperatureData((prevData) => ({
+            ...prevData,
+            [fieldName]: numValue,
+          }));
+          break;
+        case "proximity":
+          setProximityData((prevData) => ({
+            ...prevData,
+            [fieldName]: numValue,
+          }));
+          break;
+        case "wifi":
+          setWifiData((prevData) => ({ ...prevData, [fieldName]: numValue }));
+          break;
+        case "screenshot":
+          setScreenshotData((prevData) => ({
+            ...prevData,
+            [fieldName]: numValue,
+          }));
+          break;
 
-    // software sensors
-    if (mode === "application") {
-      updateApplicationData(fieldName, value);
+        default:
+          console.warn(`Unexpected mode: ${mode}`);
+          break;
+      }
     }
-    if (mode === "screen") {
-      updateScreenData(fieldName, value);
-    }
-    if (mode === "communication") {
-      updateCommunicationData(fieldName, value);
-    }
-    if (mode === "timezone") {
-      updateTimezoneData(fieldName, value);
-    }
+  }
 
     // hardware sensors
     if (mode === "accelerometer") {
@@ -295,16 +277,33 @@ function FrequencyField(inputs) {
     }
   }
 
-  const {
-    id,
-    title,
-    inputLabel,
-    defaultNum,
-    description,
-    field,
-    studyField,
-    modeState,
-  } = inputs;
+  const handleChange = (event) => {
+    const newValue = event.target.value;
+    setLocalValue(newValue);
+
+    // Allow typing decimal numbers, but don't update state yet
+    if (
+      newValue === "" ||
+      newValue === "0" ||
+      newValue === "0." ||
+      /^0?\.\d*$/.test(newValue)
+    ) {
+      return;
+    }
+
+    updateStates(field.toString(), newValue, modeState);
+  };
+
+  const handleBlur = () => {
+    const numValue = parseFloat(localValue);
+    if (Number.isNaN(numValue) || numValue <= 0) {
+      setLocalValue(defaultNum.toString());
+      updateStates(field.toString(), defaultNum, modeState);
+    } else {
+      setLocalValue(numValue.toString());
+      updateStates(field.toString(), numValue, modeState);
+    }
+  };
 
   return (
     <div className="sensor_vertical_layout">
@@ -317,23 +316,19 @@ function FrequencyField(inputs) {
         <TextField
           id={id}
           label={inputLabel}
-          value={studyField || defaultNum.toString()}
-          type="number"
+          value={localValue}
+          type="text"
           InputLabelProps={{
             shrink: true,
           }}
           style={{ width: "100%" }}
-          onChange={(event) => {
-            updateStates(
-              field.toString(),
-              parseInt(event.target.value, 10),
-              modeState
-            );
-          }}
+          onChange={handleChange}
+          onBlur={handleBlur}
         />
         <p className="schedule-description">{description}</p>
       </Grid>
     </div>
   );
 }
+
 export default FrequencyField;
