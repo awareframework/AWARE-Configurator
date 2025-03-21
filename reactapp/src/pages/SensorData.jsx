@@ -1391,7 +1391,7 @@ export default function SensorData() {
 
           <SensorComponent
             sensorName="Taking Note"
-            sensorDescription="Allow participants to take notes."
+            sensorDescription="Allow participants to take notes. Maximum length of each note is 10000 characters."
             stateField={sensorData.sensor_notes}
             field="sensor_notes"
             modeState="sensor"
