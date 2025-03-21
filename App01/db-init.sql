@@ -808,3 +808,12 @@ CREATE TABLE IF NOT EXISTS `screenshot` (
     PRIMARY KEY (`_id`),
     KEY `time_device` (`timestamp`, `device_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `notes` (
+  `_id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `timestamp` double DEFAULT '0',
+  `device_id` varchar(150) DEFAULT '',
+  `note` text, 
+  PRIMARY KEY (`_id`),
+  KEY `time_device` (`timestamp`,`device_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

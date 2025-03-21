@@ -68,6 +68,11 @@ export const screenshotSensorState = atom({
   default: {},
 });
 
+export const noteState = atom({
+  key: "noteState",
+  default: {},
+});
+
 export const pluginSensorState = atom({
   key: "pluginSensorState",
   default: {},

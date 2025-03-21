@@ -223,60 +223,6 @@ function FrequencyField(inputs) {
     }
   }
 
-    // hardware sensors
-    if (mode === "accelerometer") {
-      updateAccelerometerData(fieldName, value);
-    }
-    if (mode === "barometer") {
-      updateBarometerData(fieldName, value);
-    }
-    if (mode === "bluetooth") {
-      updateBluetoothData(fieldName, value);
-    }
-    if (mode === "gravity") {
-      updateGravityData(fieldName, value);
-    }
-    if (mode === "gyroscope") {
-      updateGyroscopeData(fieldName, value);
-    }
-    if (mode === "light") {
-      updateLightData(fieldName, value);
-    }
-    if (mode === "linearAccelerometer") {
-      updateLinearAccelerometerData(fieldName, value);
-    }
-    if (mode === "locations") {
-      updateLocationsData(fieldName, value);
-    }
-    if (mode === "magnetometer") {
-      updateMagnetometerData(fieldName, value);
-    }
-    if (mode === "network") {
-      updateNetworkData(fieldName, value);
-    }
-    if (mode === "processor") {
-      updateProcessorData(fieldName, value);
-    }
-    if (mode === "rotation") {
-      updateRotationData(fieldName, value);
-    }
-    if (mode === "temperature") {
-      updateTemperatureData(fieldName, value);
-    }
-    if (mode === "proximity") {
-      updateProximityData(fieldName, value);
-    }
-    if (mode === "wifi") {
-      updateWifiData(fieldName, value);
-    }
-    if (mode === "screenshot") {
-      updateScreenshotData(fieldName, value);
-    }
-    if (mode === "plugin") {
-      updatePluginData(fieldName, value);
-    }
-  }
-
   const handleChange = (event) => {
     const newValue = event.target.value;
     setLocalValue(newValue);
