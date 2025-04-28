@@ -47,9 +47,9 @@ export default function Main() {
     <div>
       <PageHeader />
       <div className="main_vertical_layout">
-        <p className="main_title">AWARE-Light Configuration Page</p>
+        <p className="main_title">AWARE Configuration Page</p>
         <p className="main_description">
-          Use this page to create a study configuration for AWARE-Light. Here,
+          Use this page to create a study configuration for AWARE. Here,
           you can define studies that use smartphones to conduct Experience
           Sampling, and to collect sensor data.
         </p>
@@ -130,7 +130,7 @@ export default function Main() {
               <GitHubIcon color="main" sx={{ fontSize: 70 }} />
               <p>
                 Source code is{" "}
-                <a href="https://github.com/awareframework/AWARE-Light-Configurator">
+                <a href="https://github.com/awareframework/AWARE-Configurator">
                   publicly available
                 </a>
                 , and we welcome your ideas and contributions.
@@ -138,7 +138,7 @@ export default function Main() {
             </Grid>
             <Grid xs={4}>
               <AttachMoneyIcon color="main" sx={{ fontSize: 70 }} />
-              <p>AWARE-Light is completely free to use.</p>
+              <p>AWARE is completely free to use.</p>
             </Grid>
           </Grid>
         </ThemeProvider>
@@ -162,7 +162,7 @@ export default function Main() {
           <Grid xs={6}>
             <p style={{ fontSize: "1.5rem", color: "black" }}>About</p>
             <p>
-              AWARE-Light is a version of the AWARE Android framework dedicated
+              AWARE is a version of the AWARE Android framework dedicated
               to instrument, infer, log, and share mobile context information.
               It allows for the collection of over 25 different sensors, ranging
               from the user's GPS location to application usage.

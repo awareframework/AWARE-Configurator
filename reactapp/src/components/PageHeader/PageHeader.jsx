@@ -17,7 +17,7 @@ export default function PageHeader() {
               navigateTo("/");
             }}
           >
-            AWARE-Light Configuration Page
+            AWARE Configuration Page
           </Button>
         </ThemeProvider>
       </div>
@@ -28,7 +28,7 @@ export default function PageHeader() {
       {/*    navigateTo("/"); */}
       {/*  }} */}
       {/* > */}
-      {/*  <p className="page_header">AWARE-Light Configuration Page</p> */}
+      {/*  <p className="page_header">AWARE Configuration Page</p> */}
       {/* </div> */}
     </div>
   );
