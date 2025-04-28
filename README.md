@@ -30,7 +30,7 @@ Follow these steps to run the app locally:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/awareframework/AWARE-Light-Configurator.git
+   git clone https://github.com/awareframework/AWARE-Configurator.git
    ```
 
 2. Set up the backend:
@@ -109,8 +109,7 @@ Follow these steps to run the app locally:
 
 ## Deployment Guide with SSL setting
 
-## Deployment Guide with SSL setting:
-1. clone repository 
+1. clone repository
 `git clone https://github.com/awareframework/AWARE-Configurator.git`
 2. make sure nginx and gunicorn is installed on the server
 3. create `cert` directory in AWARE project root path `mkdir cert`
