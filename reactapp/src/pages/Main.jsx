@@ -1,5 +1,5 @@
 import "./Main.css";
-import { Button, Divider, ThemeProvider } from "@mui/material";
+import { Button, Divider, ThemeProvider, Chip } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
@@ -24,6 +24,7 @@ import {
 import customisedTheme from "../functions/theme";
 import Axios from "../functions/axiosSettings";
 import { SET_SCHEDULES } from "../components/ScheduleComponent/ScheduleComponent";
+import config from "../settings";
 
 export default function Main() {
   // initialize csrf token
@@ -46,7 +47,24 @@ export default function Main() {
     <div>
       <PageHeader />
       <div className="main_vertical_layout">
-        <p className="main_title">AWARE-Light Configuration Page</p>
+        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <p className="main_title">AWARE Configuration Page</p>
+          {config.BETA_MODE && (
+            <Chip
+              label="BETA"
+              color="warning"
+              size="small"
+              sx={{
+                height: "20px",
+                "& .MuiChip-label": {
+                  px: 1,
+                  fontSize: "0.75rem",
+                  fontWeight: "bold",
+                },
+              }}
+            />
+          )}
+        </div>
         <p className="main_description">
           Use this page to create a study configuration for AWARE. Here, you can
           define studies that use smartphones to conduct Experience Sampling,
@@ -154,7 +172,7 @@ export default function Main() {
               behaviour, thoughts, and feelings of study participants throughout
               their daily lives. Data is collected through self-reports
               filled-out by the study participants. Study data is collected{" "}
-              <em>in situ</em> data; in the participant’s actual context and
+              <em>in situ</em> data; in the participant's actual context and
               close to the onset of the studied phenomenon.
             </p>
           </Grid>
