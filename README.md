@@ -1,6 +1,6 @@
-# aware-light-config-Django
+# aware-config-Django
 
-Use the Django framework to setup the configurator for AWARE-light
+Use the Django framework to setup the configurator for AWARE
 
 * Technology Stack:
   * back-end: [Django](https://www.djangoproject.com/)
@@ -31,7 +31,7 @@ Follow these steps to run the app locally:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/awareframework/AWARE-Light-Configurator.git
+   git clone https://github.com/awareframework/AWARE-Configurator.git
    ```
 
 2. Set up the backend:
@@ -92,7 +92,7 @@ Follow these steps to run the app locally:
 ## Deployment Guide without SSL setting
 
 1. clone repository
-`git clone https://github.com/awareframework/AWARE-Light-Configurator.git`
+`git clone https://github.com/awareframework/AWARE-Configurator.git`
 2. make sure nginx and gunicorn is installed on the server
 3. modify preparation.sh file
 
@@ -112,7 +112,7 @@ Follow these steps to run the app locally:
 ## Deployment Guide with SSL setting
 
 1. clone repository
-`git clone https://github.com/awareframework/AWARE-Light-Configurator.git`
+`git clone https://github.com/awareframework/AWARE-Configurator.git`
 2. make sure nginx and gunicorn is installed on the server
 3. create `cert` directory in AWARE project root path `mkdir cert`
 4. upload certificate file to `<project_root_path>/cert` directory

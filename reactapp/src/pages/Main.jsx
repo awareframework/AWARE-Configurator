@@ -1,7 +1,6 @@
 import "./Main.css";
-import { Button, Divider, ThemeProvider } from "@mui/material";
+import { Button, Divider, ThemeProvider, Chip } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { createTheme } from "@mui/material/styles";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import AutoFixHighIcon from "@mui/icons-material/AutoFixHigh";
@@ -25,6 +24,7 @@ import {
 import customisedTheme from "../functions/theme";
 import Axios from "../functions/axiosSettings";
 import { SET_SCHEDULES } from "../components/ScheduleComponent/ScheduleComponent";
+import config from "../settings";
 
 export default function Main() {
   // initialize csrf token
@@ -47,11 +47,28 @@ export default function Main() {
     <div>
       <PageHeader />
       <div className="main_vertical_layout">
-        <p className="main_title">AWARE-Light Configuration Page</p>
+        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <p className="main_title">AWARE Configuration Page</p>
+          {config.BETA_MODE && (
+            <Chip
+              label="BETA"
+              color="warning"
+              size="small"
+              sx={{
+                height: "20px",
+                "& .MuiChip-label": {
+                  px: 1,
+                  fontSize: "0.75rem",
+                  fontWeight: "bold",
+                },
+              }}
+            />
+          )}
+        </div>
         <p className="main_description">
-          Use this page to create a study configuration for AWARE-Light. Here,
-          you can define studies that use smartphones to conduct Experience
-          Sampling, and to collect sensor data.
+          Use this page to create a study configuration for AWARE. Here, you can
+          define studies that use smartphones to conduct Experience Sampling,
+          and to collect sensor data.
         </p>
 
         <ThemeProvider theme={customisedTheme}>
@@ -130,7 +147,7 @@ export default function Main() {
               <GitHubIcon color="main" sx={{ fontSize: 70 }} />
               <p>
                 Source code is{" "}
-                <a href="https://github.com/awareframework/AWARE-Light-Configurator">
+                <a href="https://github.com/awareframework/AWARE-Configurator">
                   publicly available
                 </a>
                 , and we welcome your ideas and contributions.
@@ -138,7 +155,7 @@ export default function Main() {
             </Grid>
             <Grid xs={4}>
               <AttachMoneyIcon color="main" sx={{ fontSize: 70 }} />
-              <p>AWARE-Light is completely free to use.</p>
+              <p>AWARE is completely free to use.</p>
             </Grid>
           </Grid>
         </ThemeProvider>
@@ -155,16 +172,16 @@ export default function Main() {
               behaviour, thoughts, and feelings of study participants throughout
               their daily lives. Data is collected through self-reports
               filled-out by the study participants. Study data is collected{" "}
-              <em>in situ</em> data; in the participant’s actual context and
+              <em>in situ</em> data; in the participant's actual context and
               close to the onset of the studied phenomenon.
             </p>
           </Grid>
           <Grid xs={6}>
             <p style={{ fontSize: "1.5rem", color: "black" }}>About</p>
             <p>
-              AWARE-Light is a version of the AWARE Android framework dedicated
-              to instrument, infer, log, and share mobile context information.
-              It allows for the collection of over 25 different sensors, ranging
+              AWARE is a version of the AWARE Android framework dedicated to
+              instrument, infer, log, and share mobile context information. It
+              allows for the collection of over 25 different sensors, ranging
               from the user's GPS location to application usage.
             </p>
           </Grid>
