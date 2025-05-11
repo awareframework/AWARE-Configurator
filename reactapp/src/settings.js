@@ -2,6 +2,7 @@ const config = {
   SERVER_PROTOCOL: "[REPLACEABLE_PROTOCOL]",
   SERVER_IP: "[REPLACEABLE_IP_ADDR]",
   SERVER_PORT: "[REPLACEABLE_PORT_NUM]",
+  BETA_MODE: true,
 };
 
 export default config;
