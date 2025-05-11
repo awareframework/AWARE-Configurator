@@ -46,7 +46,7 @@ export default function PageHeader() {
       {/*    navigateTo("/"); */}
       {/*  }} */}
       {/* > */}
-      {/*  <p className="page_header">AWARE-Light Configuration Page</p> */}
+      {/*  <p className="page_header">AWARE Configuration Page</p> */}
       {/* </div> */}
     </div>
   );

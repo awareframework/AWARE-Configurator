@@ -147,7 +147,7 @@ export default function Main() {
               <GitHubIcon color="main" sx={{ fontSize: 70 }} />
               <p>
                 Source code is{" "}
-                <a href="https://github.com/awareframework/AWARE-Light-Configurator">
+                <a href="https://github.com/awareframework/AWARE-Configurator">
                   publicly available
                 </a>
                 , and we welcome your ideas and contributions.
@@ -155,7 +155,7 @@ export default function Main() {
             </Grid>
             <Grid xs={4}>
               <AttachMoneyIcon color="main" sx={{ fontSize: 70 }} />
-              <p>AWARE-Light is completely free to use.</p>
+              <p>AWARE is completely free to use.</p>
             </Grid>
           </Grid>
         </ThemeProvider>
