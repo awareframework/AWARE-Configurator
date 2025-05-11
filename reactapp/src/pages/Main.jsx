@@ -1,7 +1,6 @@
 import "./Main.css";
 import { Button, Divider, ThemeProvider } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { createTheme } from "@mui/material/styles";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import AutoFixHighIcon from "@mui/icons-material/AutoFixHigh";
@@ -49,9 +48,9 @@ export default function Main() {
       <div className="main_vertical_layout">
         <p className="main_title">AWARE-Light Configuration Page</p>
         <p className="main_description">
-          Use this page to create a study configuration for AWARE-Light. Here,
-          you can define studies that use smartphones to conduct Experience
-          Sampling, and to collect sensor data.
+          Use this page to create a study configuration for AWARE. Here, you can
+          define studies that use smartphones to conduct Experience Sampling,
+          and to collect sensor data.
         </p>
 
         <ThemeProvider theme={customisedTheme}>
@@ -162,9 +161,9 @@ export default function Main() {
           <Grid xs={6}>
             <p style={{ fontSize: "1.5rem", color: "black" }}>About</p>
             <p>
-              AWARE-Light is a version of the AWARE Android framework dedicated
-              to instrument, infer, log, and share mobile context information.
-              It allows for the collection of over 25 different sensors, ranging
+              AWARE is a version of the AWARE Android framework dedicated to
+              instrument, infer, log, and share mobile context information. It
+              allows for the collection of over 25 different sensors, ranging
               from the user's GPS location to application usage.
             </p>
           </Grid>
