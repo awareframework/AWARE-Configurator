@@ -4,7 +4,13 @@ import Grid from "@mui/material/Unstable_Grid2";
 import Box from "@mui/material/Box";
 import { useRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
-import { Button, Radio, RadioGroup, ThemeProvider } from "@mui/material";
+import {
+  Button,
+  Checkbox,
+  Radio,
+  RadioGroup,
+  ThemeProvider,
+} from "@mui/material";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import {
   accelerometerState,
@@ -28,11 +34,16 @@ import {
   temperatureState,
   timezoneState,
   wifiState,
+  screenshotSensorState,
+  noteState,
+  pluginSensorState,
 } from "../functions/atom";
 import SensorComponent from "../components/SensorComponent/SensorComponent";
 import FrequencyField from "../components/FrequencyField/FrequencyField";
 import customisedTheme from "../functions/theme";
 import Field from "../components/Field/Field";
+import InputField from "../components/InputField/InputField";
+import PluginAPIField from "../components/PluginAPIField/PluginAPIField";
 
 export default function SensorData() {
   const navigateTo = useNavigate();
@@ -100,6 +111,21 @@ export default function SensorData() {
 
   const [wifiData, setWifiData] = useRecoilState(wifiState);
 
+  const [screenshotData, setScreenshotData] = useRecoilState(
+    screenshotSensorState
+  );
+
+  const [noteData, setNoteData] = useRecoilState(noteState);
+
+  const [pluginData, setPluginData] = useRecoilState(pluginSensorState);
+
+  const updatePluginData = (fieldName, value) => {
+    setPluginData({
+      ...pluginData,
+      [fieldName]: value,
+    });
+  };
+
   // eslint-disable-next-line react/no-unstable-nested-components
   function TextReader() {
     return (
@@ -154,11 +180,11 @@ export default function SensorData() {
             selected. Please list the package names, separated by a comma or
             space.
             <br />
-            Example 1: com.phone.aware com.twitter.android
+            Example 1: com.aware.phone com.twitter.android
             <br />
-            Example 2: com.phone.aware,com.twitter.android
+            Example 2: com.aware.phone,com.twitter.android
             <br />
-            Example 3: com.phone.aware, com.twitter.android
+            Example 3: com.aware.phone, com.twitter.android
           </p>
         </Grid>
       </div>
@@ -239,24 +265,6 @@ export default function SensorData() {
           />
 
           {applicationSensor.status_screentext ? TextReader() : <div />}
-        </Grid>
-      </Grid>
-    );
-  }
-
-  // eslint-disable-next-line react/no-unstable-nested-components
-  function SensorScreenSubContent() {
-    return (
-      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        <Grid width="10%" />
-        <Grid width="70%">
-          <SensorComponent
-            sensorName="Touch"
-            sensorDescription="Logs clicks, long-clicks and scroll up/down events."
-            stateField={screenData.sensor_touch}
-            field="sensor_touch"
-            modeState="screen"
-          />
         </Grid>
       </Grid>
     );
@@ -902,6 +910,236 @@ export default function SensorData() {
     );
   }
 
+  // eslint-disable-next-line react/no-unstable-nested-components
+  function SensorScreenSubContent() {
+    return (
+      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+        <Grid width="10%" />
+        <Grid width="70%">
+          <SensorComponent
+            sensorName="Touch"
+            sensorDescription="Logs clicks, long-clicks and scroll up/down events."
+            stateField={screenData.sensor_touch}
+            field="sensor_touch"
+            modeState="screen"
+          />
+        </Grid>
+      </Grid>
+    );
+  }
+
+  // eslint-disable-next-line react/no-unstable-nested-components
+  function SensorScreenshotSubContent() {
+    return (
+      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+        <Grid width="10%" />
+        <Grid width="70%">
+          <FrequencyField
+            id="capture_time_interval"
+            title="Capture Time Interval"
+            inputLabel="Time interval between screenshots (seconds)"
+            defaultNum={5}
+            description="Time interval between each screenshot capture in seconds."
+            field="capture_time_interval"
+            studyField={screenshotData.capture_time_interval}
+            modeState="screenshot"
+          />
+          <FrequencyField
+            id="compress_rate"
+            title="Compression Rate"
+            inputLabel="Compression rate for screenshots"
+            defaultNum={20}
+            description="Compression rate for the screenshots (1-100). 1 meaning compress for small size, 100 meaning compress for max quality. On default, a compression rate of 20 offers a good balance between quality and storage cost (average 60kb/per screenshot on testing device like Pixel 8)."
+            field="compress_rate"
+            studyField={screenshotData.compress_rate}
+            modeState="screenshot"
+          />
+          <SensorComponent
+            sensorName="Local Storage"
+            sensorDescription="Choose whether to save screenshot images locally in addition to syncing with the remote database. Screenshots are always synced to the remote database. If local storage is enabled, screenshots will also be saved in the folder located at /download/aware/screenshot/ on participant's device."
+            stateField={screenshotData.status_screenshot_local_storage}
+            field="status_screenshot_local_storage"
+            modeState="screenshot"
+          />
+
+          <div>
+            <p className="field_name" mb={10}>
+              Include or exclude specific package to capture *
+            </p>
+            <Grid marginTop={2}>
+              <RadioGroup
+                aria-labelledby="screenshot_package_specification"
+                name="screenshot_package_specification"
+                value={applicationSensor.screenshot_package_specification}
+                row
+              >
+                <FormControlLabel
+                  value="0"
+                  control={<Radio />}
+                  label="Inclusive packages"
+                  onClick={(_, checked) => {
+                    updateApplicationSensorData(
+                      "screenshot_package_specification",
+                      "0"
+                    );
+                  }}
+                />
+                <FormControlLabel
+                  value="1"
+                  control={<Radio />}
+                  label="Exclusive packages"
+                  onClick={(_, checked) => {
+                    updateApplicationSensorData(
+                      "screenshot_package_specification",
+                      "1"
+                    );
+                  }}
+                />
+                <FormControlLabel
+                  value="2"
+                  control={<Radio />}
+                  label="Default track all packages"
+                  onClick={(_, checked) => {
+                    updateApplicationSensorData(
+                      "screenshot_package_specification",
+                      "2"
+                    );
+                  }}
+                />
+              </RadioGroup>
+            </Grid>
+
+            <Field
+              fieldName="Package names"
+              recoilState={applicationSensorState}
+              field="screenshot_package_names"
+              inputLabel="Package names from google store"
+            />
+
+            <Grid>
+              <p className="explanation">
+                You may leave the field blank if default is selected. Please
+                list the package names separated by comma or space.
+                <br />
+                Example 1: com.aware.phone com.twitter.android
+                <br />
+                Example 2: com.aware.phone,com.twitter.android
+                <br />
+                Example 3: com.aware.phone, com.twitter.android
+              </p>
+            </Grid>
+          </div>
+        </Grid>
+      </Grid>
+    );
+  }
+  // eslint-disable-next-line react/no-unstable-nested-components
+  function PluginAmbientNoiseSubContent() {
+    return (
+      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+        <Grid width="10%" />
+        <Grid width="70%">
+          <FrequencyField
+            id="frequency_plugin_ambient_noise"
+            title="Sampling Frequency"
+            inputLabel="How frequently to sample the microphone (minutes)"
+            defaultNum={5}
+            description="Frequency of ambient noise sampling in minutes."
+            field="frequency_plugin_ambient_noise"
+            studyField={pluginData.frequency_plugin_ambient_noise}
+            modeState="plugin"
+          />
+          <FrequencyField
+            id="plugin_ambient_noise_sample_size"
+            title="Sample Size"
+            inputLabel="Duration of each sample (seconds)"
+            defaultNum={30}
+            description="Duration of each ambient noise sample in seconds."
+            field="plugin_ambient_noise_sample_size"
+            studyField={pluginData.plugin_ambient_noise_sample_size}
+            modeState="plugin"
+          />
+          <FrequencyField
+            id="plugin_ambient_noise_silence_threshold"
+            title="Silence Threshold"
+            inputLabel="Silence threshold (dB)"
+            defaultNum={50}
+            description="Threshold for considering ambient noise as silence (in dB)."
+            field="plugin_ambient_noise_silence_threshold"
+            studyField={pluginData.plugin_ambient_noise_silence_threshold}
+            modeState="plugin"
+          />
+        </Grid>
+      </Grid>
+    );
+  }
+
+  // eslint-disable-next-line react/no-unstable-nested-components
+  function PluginOpenWeatherSubContent() {
+    return (
+      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+        <Grid width="10%" />
+        <Grid width="70%">
+          <FrequencyField
+            id="plugin_openweather_frequency"
+            title="Update Frequency"
+            inputLabel="How often to fetch weather data (minutes)"
+            defaultNum={30}
+            description="Frequency of weather data updates in minutes."
+            field="plugin_openweather_frequency"
+            studyField={pluginData.plugin_openweather_frequency}
+            modeState="plugin"
+          />
+
+          <PluginAPIField
+            id="plugin_openweather_api_key"
+            title="API Key"
+            inputLabel="OpenWeather API Key"
+            description="API key for OpenWeatherMap. You can get it by registering at https://home.openweathermap.org/users/sign_up"
+            field="plugin_openweather_api_key"
+            studyField={pluginData.plugin_openweather_api_key}
+            modeState="plugin"
+          />
+
+          <Grid>
+            <p className="field_name" mb={10}>
+              Measurement unit
+            </p>
+          </Grid>
+          <RadioGroup
+            aria-labelledby="Measurement units"
+            name="measurement units"
+            value={pluginData.plugin_openweather_measurement_units || "metric"}
+            row
+          >
+            <FormControlLabel
+              value="0"
+              control={<Radio />}
+              label="Metric"
+              onClick={(_, checked) => {
+                updatePluginData(
+                  "plugin_openweather_measurement_units",
+                  "metric"
+                );
+              }}
+            />
+            <FormControlLabel
+              value="1"
+              control={<Radio />}
+              label="Imperial"
+              onClick={(_, checked) => {
+                updatePluginData(
+                  "plugin_openweather_measurement_units",
+                  "imperial"
+                );
+              }}
+            />
+          </RadioGroup>
+        </Grid>
+      </Grid>
+    );
+  }
+
   return (
     <ThemeProvider theme={customisedTheme}>
       <div className="main_vertical_layout">
@@ -1122,6 +1360,19 @@ export default function SensorData() {
           {sensorData.sensor_screen ? SensorScreenSubContent() : <div />}
 
           <SensorComponent
+            sensorName="Screenshot"
+            sensorDescription="Smartphone screenshot capture;"
+            stateField={sensorData.sensor_screenshot}
+            field="sensor_screenshot"
+            modeState="sensor"
+          />
+          {sensorData.sensor_screenshot ? (
+            SensorScreenshotSubContent()
+          ) : (
+            <div />
+          )}
+
+          <SensorComponent
             sensorName="Telephony"
             sensorDescription="Information on the mobile phone capabilities of the device, connected cell towers, and neighboring towers."
             stateField={sensorData.sensor_telephony}
@@ -1137,6 +1388,14 @@ export default function SensorData() {
           />
 
           {sensorData.sensor_timezone ? SensorTimezoneSubContent() : <div />}
+
+          <SensorComponent
+            sensorName="Taking Note"
+            sensorDescription="Allow participants to take notes. Maximum length of each note is 10000 characters."
+            stateField={sensorData.sensor_notes}
+            field="sensor_notes"
+            modeState="sensor"
+          />
         </div>
 
         <div className="border">
@@ -1305,6 +1564,35 @@ export default function SensorData() {
           />
 
           {sensorData.sensor_wifi ? SensorWifiSubContent() : <div />}
+        </div>
+
+        <div className="border">
+          <p className="title">Plugin</p>
+          <SensorComponent
+            sensorName="Ambient Noise Plugin"
+            sensorDescription="Ambient noise sampling plugin for smartphones"
+            stateField={sensorData.status_plugin_ambient_noise}
+            field="status_plugin_ambient_noise"
+            modeState="sensor"
+          />
+          {sensorData.status_plugin_ambient_noise ? (
+            PluginAmbientNoiseSubContent()
+          ) : (
+            <div />
+          )}
+
+          <SensorComponent
+            sensorName="OpenWeather Plugin"
+            sensorDescription="Fetch local weather data using OpenWeather API"
+            stateField={sensorData.status_plugin_openweather}
+            field="status_plugin_openweather"
+            modeState="sensor"
+          />
+          {sensorData.status_plugin_openweather ? (
+            PluginOpenWeatherSubContent()
+          ) : (
+            <div />
+          )}
         </div>
 
         <Box sx={{ width: "100%" }} mt={5} marginBottom={5}>

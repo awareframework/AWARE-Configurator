@@ -45,6 +45,9 @@ import {
   temperatureState,
   timezoneState,
   wifiState,
+  screenshotSensorState,
+  noteState,
+  pluginSensorState,
 } from "../functions/atom";
 import {
   RANDOM_TRIGGERS,
@@ -94,6 +97,9 @@ export default function Main() {
   const createTime = useRecoilValue(createTimeState);
   const [result, setResult] = useState({});
   const date = new Date().toJSON();
+  const screenshotData = useRecoilValue(screenshotSensorState);
+  const noteData = useRecoilValue(noteState);
+  const pluginData = useRecoilValue(pluginSensorState);
 
   const checkStudyInformationValidation = () => {
     return (
@@ -159,6 +165,7 @@ export default function Main() {
   // eslint-disable-next-line consistent-return
   function displaySensors(sensor, sensorName) {
     if (sensor in sensorData) {
+      console.log(sensor);
       return (
         <Grid width="100%" ml="10%" mt="3%">
           <div>{sensorName}</div>
@@ -242,6 +249,7 @@ export default function Main() {
         const newSchedule = {};
         newSchedule.title = schedule.title;
         newSchedule.type = schedule.type;
+        newSchedule.esm_keep = schedule.esm_keep ? schedule.esm_keep : false;
         newSchedule.questions = [];
         for (const key in schedule.questions) {
           const isSelected = schedule.questions[key];
@@ -448,7 +456,6 @@ export default function Main() {
           setting: "status_touch",
           value: screenData.sensor_touch ? screenData.sensor_touch : false,
         },
-
         // telephony
         {
           setting: "status_telephony",
@@ -784,7 +791,95 @@ export default function Main() {
           setting: "frequency_wifi",
           value: wifiData.frequency_wifi ? wifiData.frequency_wifi : 60,
         },
-
+        // screenshot
+        {
+          setting: "status_screenshot",
+          value: sensorData.sensor_screenshot
+            ? sensorData.sensor_screenshot
+            : false,
+        },
+        {
+          setting: "capture_time_interval",
+          value: screenshotData.capture_time_interval
+            ? screenshotData.capture_time_interval
+            : 5,
+        },
+        {
+          setting: "compress_rate",
+          value: screenshotData.compress_rate
+            ? screenshotData.compress_rate
+            : 20,
+        },
+        {
+          setting: "status_screenshot_local_storage",
+          value: screenshotData.status_screenshot_local_storage
+            ? screenshotData.status_screenshot_local_storage
+            : false,
+        },
+        {
+          setting: "screenshot_package_names",
+          value: applicationSensor.screenshot_package_names
+            ? applicationSensor.screenshot_package_names
+            : "",
+        },
+        {
+          setting: "screenshot_package_specification",
+          value: applicationSensor.screenshot_package_specification
+            ? applicationSensor.screenshot_package_specification
+            : "2",
+        },
+        {
+          setting: "status_notes",
+          value: sensorData.sensor_notes ? sensorData.sensor_notes : false,
+        },
+        {
+          setting: "status_plugin_ambient_noise",
+          value: sensorData.status_plugin_ambient_noise
+            ? sensorData.status_plugin_ambient_noise
+            : false,
+        },
+        {
+          setting: "frequency_plugin_ambient_noise",
+          value: pluginData.frequency_plugin_ambient_noise
+            ? pluginData.frequency_plugin_ambient_noise
+            : 5,
+        },
+        {
+          setting: "plugin_ambient_noise_sample_size",
+          value: pluginData.plugin_ambient_noise_sample_size
+            ? pluginData.plugin_ambient_noise_sample_size
+            : 30,
+        },
+        {
+          setting: "plugin_ambient_noise_silence_threshold",
+          value: pluginData.plugin_ambient_noise_silence_threshold
+            ? pluginData.plugin_ambient_noise_silence_threshold
+            : 50,
+        },
+        {
+          setting: "status_plugin_openweather",
+          value: sensorData.status_plugin_openweather
+            ? sensorData.status_plugin_openweather
+            : false,
+        },
+        {
+          setting: "plugin_openweather_frequency",
+          value: pluginData.plugin_openweather_frequency
+            ? pluginData.plugin_openweather_frequency
+            : 30,
+        },
+        {
+          setting: "plugin_openweather_api_key",
+          value: pluginData.plugin_openweather_api_key
+            ? pluginData.plugin_openweather_api_key
+            : "",
+        },
+        {
+          setting: "plugin_openweather_measurement_units",
+          value: pluginData.plugin_openweather_measurement_units
+            ? pluginData.plugin_openweather_measurement_units
+            : "metric",
+        },
         // default sensors
         { setting: "status_esm", value: true },
         { setting: "status_webservice", value: true },
@@ -875,7 +970,7 @@ export default function Main() {
   }
 
   function generateJSON() {
-    const jsonText = JSON.stringify(result);
+    const jsonText = JSON.stringify(result, null, 2);
     // console.log(jsonText);
 
     const blob = new Blob([jsonText]);
@@ -996,8 +1091,10 @@ export default function Main() {
             {displaySensors("sensor_processor", "Processor")}
             {displaySensors("sensor_installation", "Installation")}
             {displaySensors("sensor_screen", "Screen")}
+            {displaySensors("sensor_screenshot", "Screenshot")}
             {displaySensors("sensor_telephony", "Telephony")}
             {displaySensors("sensor_timezone", "Timezone")}
+            {displaySensors("sensor_notes", "Notes")}
 
             {displaySensors("sensor_accelerometer", "Accelerometer")}
             {displaySensors("sensor_barometer", "Barometer")}
@@ -1016,6 +1113,12 @@ export default function Main() {
             {displaySensors("sensor_rotation", "Rotation")}
             {displaySensors("sensor_temperature", "Temperature")}
             {displaySensors("sensor_sensor_wifi", "Wifi")}
+
+            <Grid width={250} ml={5} mt={3}>
+              <p className="title">Plugin</p>
+            </Grid>
+            {displaySensors("status_plugin_ambient_noise", "Ambient Noise")}
+            {displaySensors("status_plugin_openweather", "OpenWeather")}
 
             <Grid
               container

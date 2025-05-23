@@ -32,6 +32,8 @@ import {
   temperatureState,
   timezoneState,
   wifiState,
+  screenshotSensorState,
+  pluginSensorState,
 } from "../functions/atom";
 import customisedTheme from "../functions/theme";
 import Axios from "../functions/axiosSettings";
@@ -78,7 +80,8 @@ export default function Upload() {
   const setWifiData = useSetRecoilState(wifiState);
   const setTimezoneData = useSetRecoilState(timezoneState);
   const setCommunicationData = useSetRecoilState(communicationSensorState);
-
+  const setScreenshotData = useSetRecoilState(screenshotSensorState);
+  const setPluginData = useSetRecoilState(pluginSensorState);
   const getData = (file) => {
     fetch(file, {
       headers: {
@@ -125,6 +128,7 @@ export default function Upload() {
         const newSchedule = {};
         newSchedule.title = schedule.title;
         newSchedule.type = schedule.type;
+        newSchedule.esm_keep = schedule.esm_keep;
         newSchedule.questions = {};
         for (let i = 0; i < jsonValue.questions.length; i += 1) {
           const question = jsonValue.questions[i];
@@ -189,6 +193,8 @@ export default function Upload() {
     const wifiData = {};
     const timezoneData = {};
     const communicationData = {};
+    const screenshotData = {};
+    const pluginData = {};
 
     for (let i = 0; i < jsonValue.sensors.length; i += 1) {
       const { setting, value } = jsonValue.sensors[i];
@@ -472,6 +478,52 @@ export default function Upload() {
         case "status_webservice":
           // default value
           break;
+        case "status_screenshot":
+          sensorData.sensor_screenshot = value;
+          break;
+        case "capture_time_interval":
+          screenshotData.capture_time_interval = value;
+          break;
+        case "compress_rate":
+          screenshotData.compress_rate = value;
+          break;
+        case "status_screenshot_local_storage":
+          screenshotData.status_screenshot_local_storage = value;
+          break;
+        case "screenshot_package_names":
+          applicationSensor.screenshot_package_names = value;
+          break;
+        case "screenshot_package_specification":
+          applicationSensor.screenshot_package_specification = value;
+          break;
+        case "status_notes":
+          sensorData.sensor_notes = value;
+          break;
+        case "status_plugin_ambient_noise":
+          sensorData.status_plugin_ambient_noise = value;
+          break;
+        case "frequency_plugin_ambient_noise":
+          pluginData.frequency_plugin_ambient_noise = value;
+          break;
+        case "plugin_ambient_noise_sample_size":
+          pluginData.plugin_ambient_noise_sample_size = value;
+          break;
+        case "plugin_ambient_noise_silence_threshold":
+          pluginData.plugin_ambient_noise_silence_threshold = value;
+          break;
+        case "status_plugin_openweather":
+          sensorData.status_plugin_openweather = value;
+          break;
+        case "plugin_openweather_frequency":
+          pluginData.plugin_openweather_frequency = value;
+          break;
+        case "plugin_openweather_api_key":
+          pluginData.plugin_openweather_api_key = value;
+          break;
+        case "plugin_openweather_measurement_units":
+          pluginData.plugin_openweather_measurement_units = value;
+          break;
+
         default:
       }
     }
@@ -494,7 +546,8 @@ export default function Upload() {
     setWifiData(wifiData);
     setTimezoneData(timezoneData);
     setCommunicationData(communicationData);
-
+    setScreenshotData(screenshotData);
+    setPluginData(pluginData);
     navigateTo("/study/study_information");
   };
   function readInputFile(file) {

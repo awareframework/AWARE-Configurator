@@ -63,6 +63,21 @@ export const timezoneState = atom({
   default: {},
 });
 
+export const screenshotSensorState = atom({
+  key: "screenshotSensorState",
+  default: {},
+});
+
+export const noteState = atom({
+  key: "noteState",
+  default: {},
+});
+
+export const pluginSensorState = atom({
+  key: "pluginSensorState",
+  default: {},
+});
+
 // Hardware Sensor SubFields:
 
 export const accelerometerState = atom({

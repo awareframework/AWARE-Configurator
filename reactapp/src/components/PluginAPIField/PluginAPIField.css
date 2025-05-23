@@ -1,0 +1,12 @@
+/* PluginAPIField.css */
+.sensor_vertical_layout {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.field_name {
+    font-size: 1rem;
+    color: black;
+}
