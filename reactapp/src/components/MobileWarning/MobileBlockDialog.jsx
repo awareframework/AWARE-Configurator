@@ -4,7 +4,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { Box, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import WarningIcon from "@mui/icons-material/Warning";
 
 export default function MobileBlockDialog({ open }) {
@@ -21,19 +21,6 @@ export default function MobileBlockDialog({ open }) {
         },
       }}
     >
-      <DialogTitle
-        id="mobile-block-dialog-title"
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          gap: 1,
-          color: "#856404",
-          fontWeight: "bold",
-        }}
-      >
-        <WarningIcon sx={{ color: "#ffc107" }} />
-        Mobile Device Not Supported
-      </DialogTitle>
       <DialogContent>
         <DialogContentText
           id="mobile-block-dialog-description"
