@@ -10,10 +10,12 @@ import ScheduleConfiguration from "./pages/ScheduleConfiguration";
 import SensorData from "./pages/SensorData";
 import Upload from "./pages/Upload";
 import CustomizedDialog from "./components/Dialog/CustomizedDialog";
+import MobileWarning from "./components/MobileWarning/MobileWarning";
 
 function App() {
   return (
     <BrowserRouter>
+      <MobileWarning />
       <Routes>
         <Route path="/" element={<Navigate replace to="/main" />} />
         <Route path="/main" element={<Main />} />
