@@ -32,7 +32,7 @@ export default function MobileBlockDialog({ open }) {
             </strong>
           </Typography>
           <Typography variant="body2" paragraph>
-            This application requires a desktop or laptop computer to function
+            This website requires a desktop or laptop computer to function
             properly. The interface and functionality are not designed for
             mobile screens.
           </Typography>
