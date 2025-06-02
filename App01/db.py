@@ -143,8 +143,8 @@ def init_database(ip, port, database, root_username, root_password, insert_usern
             createUserSql = """
                 CREATE USER IF NOT EXISTS '{insertUsername}'@'localhost' IDENTIFIED BY '{insertPassword}';
                 CREATE USER IF NOT EXISTS '{insertUsername}'@'%' IDENTIFIED BY '{insertPassword}';
-                GRANT INSERT ON {database}.* TO '{insertUsername}'@'localhost';
-                GRANT INSERT ON {database}.* TO '{insertUsername}'@'%';
+                GRANT INSERT ON `{database}`.* TO '{insertUsername}'@'localhost';
+                GRANT INSERT ON `{database}`.* TO '{insertUsername}'@'%';
                 ALTER USER '{insertUsername}'@'%' REQUIRE SSL;
              flush privileges;"""\
                 .format(insertUsername=insert_username, insertPassword=insert_password, database=database)
@@ -152,8 +152,8 @@ def init_database(ip, port, database, root_username, root_password, insert_usern
             createUserSql = """
                 CREATE USER IF NOT EXISTS '{insertUsername}'@'localhost' IDENTIFIED BY '{insertPassword}';
                 CREATE USER IF NOT EXISTS '{insertUsername}'@'%' IDENTIFIED BY '{insertPassword}';
-                GRANT INSERT ON {database}.* TO '{insertUsername}'@'localhost';
-                GRANT INSERT ON {database}.* TO '{insertUsername}'@'%';
+                GRANT INSERT ON `{database}`.* TO '{insertUsername}'@'localhost';
+                GRANT INSERT ON `{database}`.* TO '{insertUsername}'@'%';
                 flush privileges;""" \
                 .format(insertUsername=insert_username, insertPassword=insert_password, database=database)
         logger.info(createUserSql)
