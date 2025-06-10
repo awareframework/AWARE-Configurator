@@ -37,7 +37,7 @@ export default function MobileBlockDialog({ open }) {
             mobile screens.
           </Typography>
           <Typography variant="body2">
-            Please access this application from a desktop or laptop computer.
+            Please access this website from a desktop or laptop computer.
           </Typography>
         </DialogContentText>
       </DialogContent>
